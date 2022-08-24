@@ -1,0 +1,21 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+.p-menubar {
+  background-color: #091a32 !important;
+  border: none !important;
+  border-radius: 0px !important;
+}
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-menuitem-text {
+    color: gainsboro !important;
+}
+
+.p-menuitem-link:hover {
+  background-color: #183e71 !important;
+} 
