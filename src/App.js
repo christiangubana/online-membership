@@ -1,23 +1,19 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 
-function App() {
+//Prime React Configuration
+import "primereact/resources/themes/bootstrap4-light-blue/theme.css";  //theme
+import "primereact/resources/primereact.min.css";                  //core css
+import "primeicons/primeicons.css";    //Icons      
+import "primeflex/primeflex.css" //Flex  
+
+import { Button} from 'primereact/button';
+
+let App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+       <h1> Welcome!</h1>
+      <Button label={'Hello'}/>
     </div>
   );
 }
