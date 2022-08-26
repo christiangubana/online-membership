@@ -1,9 +1,18 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  /* background: #040d19; */
 }
-*, *::after, *::before {
+body{
+  color: #fff;
+  background-color: #040d19;
+  /* background-image: linear-gradient(110deg, #663b7d 0%, #92aacf 100%); */
+}
+*,
+*::after,
+*::before {
   box-sizing: border-box;
 }
 
@@ -12,10 +21,98 @@ html, body {
   border: none !important;
   border-radius: 0px !important;
 }
-.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-menuitem-text {
-    color: gainsboro !important;
+.p-menubar
+  .p-menubar-root-list
+  > .p-menuitem
+  > .p-menuitem-link
+  .p-menuitem-text {
+  color: gainsboro !important;
 }
 
 .p-menuitem-link:hover {
   background-color: #183e71 !important;
-} 
+}
+
+/* Register.css */
+.register-form .card {
+  min-width: 550px !important;
+  background: #071436;
+  margin: 10px auto;
+  border: 1px solid #ccc;
+  padding: 20px;
+  color: #fff;
+}
+.register-form .card form {
+  margin-top: 2rem !important;
+}
+.register-form .card .field {
+  margin-bottom: 1.5rem !important;
+}
+@media screen and (max-width: 960px) {
+  .register-form .card {
+    width: 80% !important;
+  }
+}
+@media screen and (max-width: 640px) {
+  .register-form .card {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+}
+
+/* Home page style */
+.hero-image {
+  background-image: linear-gradient(to bottom,rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.8)), url("/public/images/home-page-img.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  position: relative;
+}
+
+/* centers the content on the viewport */
+.hero-text {
+  text-align: center;
+  position: absolute;
+  top: 52.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  color: #fff;
+  /*  words remain as is without breaking up  */
+  white-space: nowrap;
+
+  /*  This creates a text shadow around the the text within the hero-text div  */
+  text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), 0px 8px 13px rgba(0, 0, 0, 0.1), 0px 16px 23px rgba(0, 0, 0, 0.1);
+}
+
+.hero-text h1 {
+  font-size: 4.3em;
+  font-weight: 300;
+}
+
+.hero-text p {
+  font-size: 1em;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-weight: 700;
+}
+
+.btn-default,
+.btn-default:visited {
+  margin-top: 50px;
+  padding: 13px 25px;
+  border-radius: 5px;
+  border: none;
+  font-size: 0.9em;
+  font-weight: 700;
+  text-transform: uppercase;
+  background-color: #ffc312;
+  transition: background-color 0.1s;
+}
+
+.btn-default:hover,
+.btn-default:active {
+  background-color: #896600;
+}

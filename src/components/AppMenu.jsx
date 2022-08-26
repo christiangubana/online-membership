@@ -24,6 +24,12 @@ const AppMenu = (props) => {
       },
     },
     {
+      label: "Landing",
+      command: () => {
+        navigate("/landing");
+      },
+    },
+    {
       label: "Profile",
       command: () => {
         navigate("/profile");

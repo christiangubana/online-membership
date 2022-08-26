@@ -1,31 +1,14 @@
-import React, { useState } from "react";
-import { Button } from "primereact/button";
-import { Card } from "primereact/card";
+import React from "react";
 
 const Home = () => {
-  const [count, setCount] = useState(0);
   return (
-    <div className="grid">
-      <div className="col-4">
-        <Card className="m-3 shadow-5">
-          <h3>{count}</h3>
-          <Button label={"Increment"} className="p-button-success mr-2" onClick={() => setCount(count + 1)}/>
-          <Button label="Decrement" className="p-button-warning" onClick={() => setCount(count -1 >= 0 ? count -1 : 0)}/>
-        </Card>
-      </div>
-      <div className="col-4">
-        <Card className="m-3 shadow-5">
-          <h3>Counter: {count}</h3>
-          <Button label={"Increment"} className="p-button-success mr-2" />
-          <Button label="Decrement" className="p-button-warning" />
-        </Card>
-      </div>
-      <div className="col-4">
-        <Card className="m-3 shadow-5">
-          <h3>Counter: {count}</h3>
-          <Button label={"Increment"} className="p-button-success mr-2" />
-          <Button label="Decrement" className="p-button-warning" />
-        </Card>
+    <div>
+      <div className="hero-image">
+        <div className="hero-text">
+          <h1>Liminil</h1>
+          <p>Online membership</p>
+          <button className="btn-default">Explore</button>
+        </div>
       </div>
     </div>
   );
