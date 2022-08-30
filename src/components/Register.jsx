@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Field } from "react-final-form";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
@@ -10,25 +10,21 @@ import { Dialog } from "primereact/dialog";
 import { Divider } from "primereact/divider";
 import { classNames } from "primereact/utils";
 import { useNavigate } from "react-router";
+import { getFormValues } from "../useLocalStorage";
 
 const Register = () => {
   const navigate = useNavigate();
   const [showMessage, setShowMessage] = useState(false);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState(getFormValues);
 
   const checkForValidation = (data) => {
     let errors = {};
 
-    if (!data.firstName) {
-      errors.firstName = "First Name is required.";
+    if (!data.fullName) {
+      errors.fullName = "First Name is required.";
+    } else if (data.fullName.length < 5) {
+      errors.fullName = "First name cannot be short";
     }
-    if (!data.lastName) {
-      errors.lastName = "Last Name is required.";
-    }
-
-    // if (!data.gender) {
-    //   errors.gender = "Gender Name is required.";
-    // }
 
     if (!data.professional) {
       errors.professional = "Professional is required.";
@@ -60,6 +56,9 @@ const Register = () => {
       errors.confirm = "Password don't match";
     }
 
+    if (!data.gender) {
+      errors.gender = "Gender is required";
+    }
     if (!data.accept) {
       errors.accept = "You need to agree to the terms and conditions.";
     }
@@ -67,14 +66,6 @@ const Register = () => {
     return errors;
   };
 
-  function handleChange(evt) {
-    const value = evt.target.value;
-    setFormData({
-      ...formData,
-      [evt.target.name]: value
-    });
-    console.log(formData)
-  }
   const onSubmit = (data, form) => {
     setFormData(data);
     setShowMessage(true);
@@ -82,26 +73,19 @@ const Register = () => {
     form.restart();
   };
 
+  const gender = [{ name: "Male" }, { name: "Female" }, {name: 'Other'}];
+
+  useEffect(() => {
+    localStorage.setItem('form', JSON.stringify(formData));
+}, [formData]);
+
   const isFormFieldValid = (meta) => !!(meta.touched && meta.error); // React Final Form provides your field state for you in the meta prop.
   const getFormErrorMessage = (meta) => {
     return (
       isFormFieldValid(meta) && <small className="p-error">{meta.error}</small>
     );
   };
-
-  const dialogFooter = (
-    <div className="flex justify-content-center">
-      <Button
-        label="OK"
-        className="p-button-text"
-        autoFocus
-        onClick={() => {
-          setShowMessage(false);
-          navigate("/landing");
-        }}
-      />
-    </div>
-  );
+  const dialogFooter = <div className="flex justify-content-center"><Button label="OK" className="p-button-text" autoFocus onClick={() => {setShowMessage(false); navigate('/landing') }} /></div>;
   const passwordHeader = <h6>Pick a password</h6>;
   const passwordFooter = (
     <React.Fragment>
@@ -117,7 +101,7 @@ const Register = () => {
   );
 
   return (
-    <div className="register-form">
+    <div className="user-form">
       <Dialog
         visible={showMessage}
         onHide={() => setShowMessage(false)}
@@ -134,7 +118,7 @@ const Register = () => {
           ></i>
           <h5>Registration Successful!</h5>
           <p style={{ lineHeight: 1.5, textIndent: "1rem" }}>
-            Your account is registered under username <b>{formData.email}</b>.
+            Your account is registered under username <b>{formData.email}</b>
           </p>
         </div>
       </Dialog>
@@ -143,69 +127,41 @@ const Register = () => {
         <div className="card">
           <h1 className="title text-4xl text-center">Liminil</h1>
           <h5 className="text-center">Register your details to a list</h5>
+          <p className="text-center">
+            Or{" "}
+            <span className="text-orange-700">
+              <a href="/login">already have an account?</a>
+            </span>
+          </p>
           <Form
-            onSubmit={onSubmit}
+            onSubmit={onSubmit} // This `Form` manages my form state, and handleSubmit functionality to be passed to <form> element, via render props.
             initialValues={{
-              firstName: "",
-              lastName: "",
-              gender: "",
-              professional: "",
-              telephone: "",
-              email: "",
-              password: "",
-              confirm: "",
-              date: null,
-              accept: false,
+              getFormValues
             }}
             validate={checkForValidation}
             render={({ handleSubmit, form, values }) => (
               <form onSubmit={handleSubmit} className="p-fluid">
+                {/* The `Field` manages all the state for a particular field and provides input callbacks (e.g. onBlur, onChange, and onFocus) as well as the value of the form */}
                 <Field
-                  name="firstName"
+                  name="fullName"
                   render={({ input, meta }) => (
                     <div className="field">
                       <span className="p-float-label">
                         <InputText
-                          id="firstName"
-                          {...input} 
+                          id="fullName"
+                          {...input} // React Final Form provides onChangeEvent func for you in the `input` prop.
                           autoFocus
                           className={classNames({
                             "p-invalid": isFormFieldValid(meta),
                           })}
                         />
                         <label
-                          htmlFor="firstName"
+                          htmlFor="fullName"
                           className={classNames({
                             "p-error": isFormFieldValid(meta),
                           })}
                         >
-                          First Name
-                        </label>
-                      </span>
-                      {getFormErrorMessage(meta)}
-                    </div>
-                  )}
-                />
-                <Field
-                  name="lastName"
-                  render={({ input, meta }) => (
-                    <div className="field">
-                      <span className="p-float-label">
-                        <InputText
-                          id="lastName"
-                          {...input}
-                          autoFocus
-                          className={classNames({
-                            "p-invalid": isFormFieldValid(meta),
-                          })}
-                        />
-                        <label
-                          htmlFor="lastName"
-                          className={classNames({
-                            "p-error": isFormFieldValid(meta),
-                          })}
-                        >
-                          Last Name
+                          Full Name
                         </label>
                       </span>
                       {getFormErrorMessage(meta)}
@@ -330,6 +286,7 @@ const Register = () => {
                         <InputText
                           id="telephone"
                           {...input}
+                          placeholder="(212)456-7890"
                           autoFocus
                           className={classNames({
                             "p-invalid": isFormFieldValid(meta),
@@ -356,7 +313,7 @@ const Register = () => {
                         <Dropdown
                           id="gender"
                           {...input}
-                          // options={countries}
+                          options={gender}
                           optionLabel="name"
                         />
                         <label htmlFor="gender">Gender</label>
@@ -401,13 +358,13 @@ const Register = () => {
                           "p-error": isFormFieldValid(meta),
                         })}
                       >
-                        I agree to the terms and conditions*
+                        I agree to the terms and conditions of Liminil.
                       </label>
                     </div>
                   )}
                 />
                 <Button type="submit" label="Submit" className="mt-2" />
-                <pre>{JSON.stringify(values, 0, 2)}</pre>
+                {/* <pre>{JSON.stringify(values, 0, 2)}</pre> */}
               </form>
             )}
           />

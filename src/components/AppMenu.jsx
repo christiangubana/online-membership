@@ -50,7 +50,7 @@ const AppMenu = (props) => {
     {
       label: "Logout",
       command: () => {
-        navigate("/");
+        navigate('/')
       },
     },
   ];

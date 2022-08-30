@@ -16,23 +16,25 @@ import Login from "./components/Login";
 import About from "./components/About";
 
 import { Routes, Route } from "react-router-dom";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 let App = () => {
   return (
-    <div className="container">
-      <AppMenu />
+    <>
       <React.StrictMode>
+        <AppMenu />
         <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="/about" element={<About />} />
-          <Route exact path="/login" element={<Login />} />
-          <Route exact path="/register" element={<Register />} />
-          <Route exact path="/landing" element={<LandingPage />} />
-          <Route exact path="/profile" element={<Profile />} />
-          {/* <Route exact path="/logout" element={<Logout/>}/> */}
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/about" element={<About />} />
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/landing" element={<LandingPage />} />
+            <Route path="profile" element={<Profile />} />
+          </Route>
         </Routes>
       </React.StrictMode>
-    </div>
+    </>
   );
 };
 
