@@ -10,12 +10,12 @@ import { Dialog } from "primereact/dialog";
 import { Divider } from "primereact/divider";
 import { classNames } from "primereact/utils";
 import { useNavigate } from "react-router";
-import { getFormValues } from "../useLocalStorage";
+import useLocalStorage from '../useLocalStorage'
 
 const Register = () => {
   const navigate = useNavigate();
   const [showMessage, setShowMessage] = useState(false);
-  const [formData, setFormData] = useState(getFormValues);
+  const [formData, setFormData] = useState(useLocalStorage);
 
   const checkForValidation = (data) => {
     let errors = {};
@@ -76,8 +76,8 @@ const Register = () => {
   const gender = [{ name: "Male" }, { name: "Female" }, {name: 'Other'}];
 
   useEffect(() => {
-    localStorage.setItem('form', JSON.stringify(formData));
-}, [formData]);
+    window.localStorage.setItem("key", JSON.stringify(formData));
+  }, [formData]);
 
   const isFormFieldValid = (meta) => !!(meta.touched && meta.error); // React Final Form provides your field state for you in the meta prop.
   const getFormErrorMessage = (meta) => {
@@ -136,7 +136,7 @@ const Register = () => {
           <Form
             onSubmit={onSubmit} // This `Form` manages my form state, and handleSubmit functionality to be passed to <form> element, via render props.
             initialValues={{
-              getFormValues
+              useLocalStorage
             }}
             validate={checkForValidation}
             render={({ handleSubmit, form, values }) => (

@@ -16,25 +16,36 @@ import Login from "./components/Login";
 import About from "./components/About";
 
 import { Routes, Route } from "react-router-dom";
-import ProtectedRoutes from "./ProtectedRoutes";
+import PrivateRoutes from "./PrivateRoutes";
 
 let App = () => {
   return (
-    <>
-      <React.StrictMode>
-        <AppMenu />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/about" element={<About />} />
-          <Route element={<ProtectedRoutes />}>
-            <Route path="/landing" element={<LandingPage />} />
-            <Route path="profile" element={<Profile />} />
-          </Route>
-        </Routes>
-      </React.StrictMode>
-    </>
+    <div>
+      <AppMenu />
+      <Routes>
+        <Route index element={<Home />} />
+        <Route path="home" element={<Home />} />
+        <Route path="register" element={<Register />} />
+        <Route path="login" element={<Login />} />
+        <Route path="about" element={<About />} />
+        <Route
+          path="profile"
+          element={
+            <PrivateRoutes>
+              <Profile />
+            </PrivateRoutes>
+          }
+        />
+        <Route
+          path="landing"
+          element={
+            <PrivateRoutes>
+              <LandingPage />
+            </PrivateRoutes>
+          }
+        />
+      </Routes>
+    </div>
   );
 };
 

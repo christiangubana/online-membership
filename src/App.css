@@ -154,3 +154,11 @@ a {
   font-weight: 300;
   font-size: 16px;
 }
+
+.p-menubar ul {
+  font-family: revert !important;
+  font-size: small !important;
+}
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link {
+  outline: none !important;
+}

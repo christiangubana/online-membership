@@ -1,17 +1,22 @@
-export function getFormValues() {
-  const storedValues = localStorage.getItem('form');
-  console.log(storedValues)
-  if (!storedValues)
-    return {
-      fullName: "",
-      gender: "",
-      professional: "",
-      telephone: "",
-      email: "",
-      password: "",
-      confirm: "",
-      date: null,
-      accept: false,
-    };
-  return JSON.parse(storedValues);
-}
+
+const initialValues = {
+  fullName: "",
+  gender: "",
+  professional: "",
+  telephone: "",
+  email: "",
+  password: "",
+  confirm: "",
+  date: null,
+  accept: false,
+};
+const useLocalStorage = () => {
+  try {
+    const storedValues = window.localStorage.getItem("key");
+    return storedValues ? JSON.parse(storedValues) : initialValues;
+  } catch (error) {
+    return initialValues;
+  }
+};
+
+export default useLocalStorage;
