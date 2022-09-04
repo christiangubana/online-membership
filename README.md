@@ -1,6 +1,6 @@
 ## How to test the project
 
-Clone this repository into you local machine ```https://github.com/christiangubana/online-membership.git```
+Clone this repository into you local machine ```git clone https://github.com/christiangubana/online-membership.git```
 
 After cloning do 
 
